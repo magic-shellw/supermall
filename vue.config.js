@@ -9,6 +9,8 @@ module.exports = {
     resolve: {
       alias: {
         'assets': resolve('./src/assets'),
+        "img": resolve('./src/assets/img'),
+        "css": resolve('./src/assets/css'),
         'components': resolve('./src/components'),
         'common': resolve('./src/common'),
         'network': resolve('./src/network'),
