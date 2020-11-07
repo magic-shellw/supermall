@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-view/>
+    <router-view />
     <div class="tab">
       <slot></slot>
     </div>
@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style>
-.tab{
+.tab {
   display: grid;
   grid-template-columns: repeat(4, 25%);
   height: 49px;
@@ -22,27 +22,26 @@ export default {
   bottom: 0px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.986);
-  box-shadow: 0 .5px 2px;
+  box-shadow: 0 0.5px 2px;
 }
 
-.bar-text{
+.bar-text {
   text-align: center;
-  font-size: 13px
+  font-size: 13px;
 }
 
-.bar-img{
+.bar-img {
   height: 30px;
   width: 30px;
   vertical-align: middle;
 }
 
-.img-center{
+.img-center {
   text-align: center;
-  padding-top: 3px
+  padding-top: 3px;
 }
 
 .active {
-  color: #f42
+  color: #f42;
 }
-
 </style>
