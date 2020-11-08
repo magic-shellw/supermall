@@ -2,30 +2,33 @@
   <div>
     <main-nav-bar/>
     <swiper :img-array="banner"/>
+    <recommend :recommend-data="recommendD" />
   </div>
 </template>
 
 <script>
 import MainNavBar from 'components/content/MainNavBar/MainNavBar';
 import {GetHomeMultiData} from 'network/home';
-import Swiper from 'components/common/swiper/swiper'
+import Swiper from 'components/common/swiper/swiper';
+import Recommend from './childComps/recommend';
 
 export default {
   name: 'Home',
   data() {
     return {
-      recommend: null,
+      recommendD: null,
       banner: null,
     }
   },
   components: {
     MainNavBar,
-    Swiper
+    Swiper,
+    Recommend
   },
   created() {
     GetHomeMultiData().then(res => {
       this.banner = res.data.data.banner.list;
-      this.recommend = res.data.data.recommend.list;
+      this.recommendD = res.data.data.recommend.list;
     })
   }
 }
