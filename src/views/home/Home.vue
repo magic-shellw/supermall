@@ -1,27 +1,31 @@
 <template>
   <div>
     <main-nav-bar/>
-    <h2>你好，我是首页</h2>
+    <swiper :img-array="banner"/>
   </div>
 </template>
 
 <script>
 import MainNavBar from 'components/content/MainNavBar/MainNavBar';
-import {GetHomeMultiData} from 'network/home'
+import {GetHomeMultiData} from 'network/home';
+import Swiper from 'components/common/swiper/swiper'
 
 export default {
   name: 'Home',
   data() {
     return {
-      result: null
+      recommend: null,
+      banner: null,
     }
   },
   components: {
-    MainNavBar
+    MainNavBar,
+    Swiper
   },
   created() {
     GetHomeMultiData().then(res => {
-      this.result = res.data.data;
+      this.banner = res.data.data.banner.list;
+      this.recommend = res.data.data.recommend.list;
     })
   }
 }
