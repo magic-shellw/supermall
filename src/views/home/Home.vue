@@ -30,7 +30,7 @@ export default {
       this.banner = res.data.data.banner.list;
       this.recommendD = res.data.data.recommend.list;
     })
-  }
+  },
 }
 </script>
 
