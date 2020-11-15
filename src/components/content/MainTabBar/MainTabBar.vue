@@ -82,4 +82,7 @@ export default {
 </script>
 
 <style>
+  .tab{
+    z-index: 50;
+  }
 </style>

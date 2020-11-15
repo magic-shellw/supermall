@@ -21,7 +21,7 @@ export default {
 
 <style>
   .nav-bar{
-    background-color: rgba(248, 21, 127, 0.8);
+    background-color: rgb(248, 21, 127);
     display: grid;
     grid-template-columns: 60px auto 60px;
   }

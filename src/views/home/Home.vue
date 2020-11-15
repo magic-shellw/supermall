@@ -3,6 +3,23 @@
     <main-nav-bar/>
     <swiper :img-array="banner"/>
     <recommend :recommend-data="recommendD" />
+    <feature/>
+    <tab-control :title="['流行', '新款', '精选']"/>
+    <h2>hello</h2>
+    <h2>hello</h2>
+    <h2>hello</h2>
+    <h2>hello</h2>
+    <h2>hello</h2>
+    <h2>hello</h2>
+    <h2>hello</h2>
+    <h2>hello</h2>
+    <h2>hello</h2>
+    <h2>hello</h2>
+    <h2>hello</h2>
+    <h2>hello</h2>
+    <h2>hello</h2>
+    <h2>hello</h2>
+    <h2>hello</h2>
   </div>
 </template>
 
@@ -11,6 +28,8 @@ import MainNavBar from 'components/content/MainNavBar/MainNavBar';
 import {GetHomeMultiData} from 'network/home';
 import Swiper from 'components/common/swiper/swiper';
 import Recommend from './childComps/recommend';
+import Feature from './childComps/feature';
+import TabControl from 'components/content/TabControl/TabControl.vue';
 
 export default {
   name: 'Home',
@@ -23,7 +42,9 @@ export default {
   components: {
     MainNavBar,
     Swiper,
-    Recommend
+    Recommend,
+    Feature,
+    TabControl
   },
   created() {
     GetHomeMultiData().then(res => {

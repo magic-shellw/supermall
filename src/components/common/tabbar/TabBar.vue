@@ -21,7 +21,7 @@ export default {
   position: fixed;
   bottom: 0px;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.986);
+  background-color: #FFF;
   box-shadow: 0 0.5px 2px;
 }
 

@@ -17,5 +17,8 @@ module.exports = {
         'views': resolve('./src/views')
       }
     }
+  },
+  css: {
+    sourceMap: true,
   }
 }

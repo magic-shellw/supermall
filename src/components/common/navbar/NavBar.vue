@@ -29,6 +29,7 @@ export default {
 .nav-bar {
   height: 44px;
   position: fixed;
+  z-index: 10000;
   top: 0;
   width: 100%;
 }
