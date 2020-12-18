@@ -25,11 +25,12 @@
 
 <script>
 import MainNavBar from 'components/content/MainNavBar/MainNavBar';
-import {GetHomeMultiData} from 'network/home';
 import Swiper from 'components/common/swiper/swiper';
 import Recommend from './childComps/recommend';
 import Feature from './childComps/feature';
 import TabControl from 'components/content/TabControl/TabControl.vue';
+
+import {GetHomeMultiData} from 'network/home';
 
 export default {
   name: 'Home',
