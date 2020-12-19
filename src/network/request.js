@@ -20,3 +20,11 @@ export function request(config) {
 
   return instance(config);
 }
+
+export function myRequest(config) {
+  const instance = axios.create({
+    baseURL: 'http://127.0.0.1:8080',
+    timeout: 3000
+  });
+  return instance(config);
+}

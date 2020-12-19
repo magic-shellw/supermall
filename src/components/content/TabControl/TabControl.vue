@@ -1,7 +1,7 @@
 <template>
   <div class="tab-control">
-    <div v-for="(item, index) in title" :key="index" class="tab-control-item" @click="currentIndex = index">
-      <span :class="{'tab-active': currentIndex === index}">{{item}}</span>
+    <div v-for="(item, index) in title" :key="index" class="tab-control-item" @click="showGoods(index, item.name)" >
+      <span :class="{'tab-active': currentIndex === index}">{{item.cname}}</span>
     </div>
   </div>
 </template>
@@ -21,6 +21,12 @@ export default {
     return {
       currentIndex: 0
     }
+  },
+  methods: {
+    showGoods(index, type) {
+      this.currentIndex = index;
+      this.$emit('chooseGoods', type)
+    }
   }
 }
 </script>
@@ -38,6 +44,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(3, 33.3%);
   background-color: #FFF;
+  margin-bottom: 10px;
 }
 
 .tab-active{
