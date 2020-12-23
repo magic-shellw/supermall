@@ -1,16 +1,18 @@
 <template>
   <div class="home">
     <main-nav-bar />
-    <bt-scroll 
+    <bt-scroll
       class="wrapper"
       ref="btscroll"
       @scroll="isShowBT"
       :probe-type="3"
+      :pull-up-load="true"
+      @pullUp="loadMore"
     >
       <swiper :img-array="banner" />
       <recommend :recommend-data="recommendD" />
       <feature />
-      <tab-control :title="tabName" @chooseGoods="chooseGoods"/>
+      <tab-control :title="tabName" @chooseGoods="chooseGoods" />
       <goods-list-show :goods="showGoodsType" />
     </bt-scroll>
     <back-top v-show="isShow" @click.native="backTop" />
@@ -56,6 +58,7 @@ export default {
         },
       ],
       isShow: false,
+      isLoad: true,
     };
   },
   components: {
@@ -78,7 +81,9 @@ export default {
       ]);
     })();
   },
-  mounted() {},
+  updated() {
+    this.$refs.btscroll.scroll.refresh();
+  },
   methods: {
     /* 网络请求 */
 
@@ -106,6 +111,12 @@ export default {
     },
     isShowBT({ y }) {
       this.isShow = Math.abs(y) > 500;
+    },
+    loadMore() {
+      this.isLoad = false;
+      this.GetGoodsList(this.goodsType);
+      this.$refs.btscroll.finishPullUp();
+      this.isLoad = true;
     },
   },
   computed: {

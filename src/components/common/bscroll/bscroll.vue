@@ -29,6 +29,10 @@ export default {
     isCreate: {
       type: Boolean,
       deafult: false
+    },
+    pullUpLoad: {
+      type: Boolean,
+      deafult: false
     }
   },
   mounted() {
@@ -39,20 +43,24 @@ export default {
       this.scroll = new BScroll(this.$refs.scroll, {
         click: true,
         probeType: this.probeType,
-        pullUpLoad: true,
+        pullUpLoad: this.pullUpLoad,
         mouseWheel: true
-      });
-
-      this.scroll.on('scrollStart', () => {
-        this.scroll.refresh();
       });
 
       this.scroll.on('scroll', (position) => {
         this.$emit('scroll', position)
       })
+
+      this.scroll.on('pullingUp', () => {
+        this.$emit('pullUp')
+      })
     },
     backTop(x, y, time = 400) {
       this.scroll.scrollTo(x, y, time);
+    },
+    finishPullUp() {
+      this.scroll.finishPullUp();
+      this.scroll.refresh();
     }
   },
 };
