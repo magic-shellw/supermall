@@ -48,7 +48,7 @@ export default {
 }
 
 .tab-active{
-  padding-bottom: 10px;
+  padding-bottom: 7px;
   border-bottom: 2px solid rgb(247, 47, 187);
 }
 </style>
