@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@better-scroll/core": "^2.0.6",
+    "@better-scroll/mouse-wheel": "^2.0.6",
     "@better-scroll/pull-up": "^2.0.6",
     "axios": "^0.21.0",
     "core-js": "^3.6.5",

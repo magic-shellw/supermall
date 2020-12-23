@@ -1,53 +1,59 @@
 <template>
   <div class="tab-control">
-    <div v-for="(item, index) in title" :key="index" class="tab-control-item" @click="showGoods(index, item.name)" >
-      <span :class="{'tab-active': currentIndex === index}">{{item.cname}}</span>
+    <div
+      v-for="(item, index) in title"
+      :key="index"
+      class="tab-control-item"
+      @click="showGoods(index, item.name)"
+    >
+      <span :class="{ 'tab-active': currentIndex === index }">{{
+        item.cname
+      }}</span>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: '',
+  name: "",
   props: {
     title: {
       type: Array,
       default() {
-        return []
-      }
-    }
+        return [];
+      },
+    },
   },
   data() {
     return {
-      currentIndex: 0
-    }
+      currentIndex: 0,
+    };
   },
   methods: {
     showGoods(index, type) {
       this.currentIndex = index;
-      this.$emit('chooseGoods', type)
-    }
-  }
-}
+      this.$emit("chooseGoods", type);
+    },
+  },
+};
 </script>
 
 <style>
-.tab-control-item{
+.tab-control-item {
   height: 40px;
   line-height: 40px;
   text-align: center;
 }
 
-.tab-control{
-  position: sticky;
-  top: 44px;
+
+.tab-control {
   display: grid;
   grid-template-columns: repeat(3, 33.3%);
-  background-color: #FFF;
+  background-color: #fff;
   margin-bottom: 10px;
 }
 
-.tab-active{
+.tab-active {
   padding-bottom: 7px;
   border-bottom: 2px solid rgb(247, 47, 187);
 }

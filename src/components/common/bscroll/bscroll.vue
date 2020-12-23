@@ -9,8 +9,10 @@
 <script>
 import BScroll from "@better-scroll/core";
 import PullUp from "@better-scroll/pull-up";
+import MouseWheel from "@better-scroll/mouse-wheel";
 
 BScroll.use(PullUp);
+BScroll.use(MouseWheel);
 
 export default {
   name: "bscroll",
@@ -23,6 +25,10 @@ export default {
     probeType: {
       type: Number,
       deafult: 0
+    },
+    isCreate: {
+      type: Boolean,
+      deafult: false
     }
   },
   mounted() {
@@ -34,6 +40,7 @@ export default {
         click: true,
         probeType: this.probeType,
         pullUpLoad: true,
+        mouseWheel: true
       });
 
       this.scroll.on('scrollStart', () => {

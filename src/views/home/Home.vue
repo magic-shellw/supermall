@@ -1,14 +1,19 @@
 <template>
   <div class="home">
     <main-nav-bar />
-    <bt-scroll class="wrapper" ref="btscroll">
+    <bt-scroll 
+      class="wrapper"
+      ref="btscroll"
+      @scroll="isShowBT"
+      :probe-type="3"
+    >
       <swiper :img-array="banner" />
       <recommend :recommend-data="recommendD" />
       <feature />
-      <tab-control :title="tabName" @chooseGoods="chooseGoods" />
-      <goods-list-show :goods="showGoodsType"/>
+      <tab-control :title="tabName" @chooseGoods="chooseGoods"/>
+      <goods-list-show :goods="showGoodsType" />
     </bt-scroll>
-    <back-top v-show="isShow" @click.native="backTop" :probe-type="3" @scorll="isShowBT"/>
+    <back-top v-show="isShow" @click.native="backTop" />
   </div>
 </template>
 
@@ -23,7 +28,6 @@ import BtScroll from "components/common/bscroll/bscroll.vue";
 import BackTop from "components/content/BackTop/BackTop.vue";
 
 import { GetHomeMultiData, GetGoodsList } from "network/home";
-
 
 export default {
   name: "Home",
@@ -51,7 +55,7 @@ export default {
           name: "choiceness",
         },
       ],
-      isShow: false
+      isShow: false,
     };
   },
   components: {
@@ -62,16 +66,19 @@ export default {
     TabControl,
     GoodsListShow,
     BtScroll,
-    BackTop
+    BackTop,
   },
   created() {
-    this.GetHomeMultiData();
-    this.GetGoodsList("choiceness");
-    this.GetGoodsList("new");
-    this.GetGoodsList("fashion");
+    (async () => {
+      await Promise.all([
+        this.GetHomeMultiData(),
+        this.GetGoodsList("choiceness"),
+        this.GetGoodsList("fashion"),
+        this.GetGoodsList("new"),
+      ]);
+    })();
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     /* 网络请求 */
 
@@ -97,9 +104,9 @@ export default {
     backTop() {
       this.$refs.btscroll.backTop(0, 0);
     },
-    isShowBT({y}) {
-      this.isShow = Math.abs(y) > 1000;
-    }
+    isShowBT({ y }) {
+      this.isShow = Math.abs(y) > 500;
+    },
   },
   computed: {
     showGoodsType() {
@@ -114,7 +121,7 @@ export default {
   height: 100vh;
 }
 
-.wrapper{
+.wrapper {
   height: calc(100% - 93px);
   overflow: hidden;
 }
