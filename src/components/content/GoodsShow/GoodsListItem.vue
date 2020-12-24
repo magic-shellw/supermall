@@ -2,7 +2,7 @@
   <div>
     <a href="javscript:;" class="goods-link">
       <div class="goods-item">
-        <img :src="goodsItem.img" alt="" class="goods-img" />
+        <img :src="goodsItem.img" alt="" class="goods-img" @load="imgLoad"/>
         <div class="goods-title">{{ goodsItem.title }}</div>
         <span class="goods-price">￥{{ goodsItem.price }}</span>
         <span class="goods-cfavt"
@@ -29,6 +29,9 @@ export default {
   methods: {
     say() {
       console.log('收藏');
+    },
+    imgLoad() {
+      this.$bus.$emit('ItemImgLoad')
     }
   }
 };

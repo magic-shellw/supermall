@@ -58,7 +58,6 @@ export default {
         },
       ],
       isShow: false,
-      isLoad: true,
     };
   },
   components: {
@@ -72,18 +71,22 @@ export default {
     BackTop,
   },
   created() {
-    (async () => {
-      await Promise.all([
-        this.GetHomeMultiData(),
-        this.GetGoodsList("choiceness"),
-        this.GetGoodsList("fashion"),
-        this.GetGoodsList("new"),
-      ]);
-    })();
+        this.GetHomeMultiData();
+        this.GetGoodsList("choiceness");
+        this.GetGoodsList("fashion");
+        this.GetGoodsList("new");
   },
-  updated() {
+  mounted() {
+    //事件总线解决BetterScroll中的图片异步请求Bug
+    this.$bus.$on('ItemImgLoad', () => {
+      this.$refs.btscroll?.btRefresh();
+    });
+  },
+
+  //通过Vue声明周期函数updated数据更新解决betterscorll bug 效率更高
+  /* updated() {
     this.$refs.btscroll.scroll.refresh();
-  },
+  }, */
   methods: {
     /* 网络请求 */
 
@@ -113,10 +116,8 @@ export default {
       this.isShow = Math.abs(y) > 500;
     },
     loadMore() {
-      this.isLoad = false;
       this.GetGoodsList(this.goodsType);
       this.$refs.btscroll.finishPullUp();
-      this.isLoad = true;
     },
   },
   computed: {

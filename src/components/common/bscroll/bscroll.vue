@@ -9,10 +9,8 @@
 <script>
 import BScroll from "@better-scroll/core";
 import PullUp from "@better-scroll/pull-up";
-import MouseWheel from "@better-scroll/mouse-wheel";
 
 BScroll.use(PullUp);
-BScroll.use(MouseWheel);
 
 export default {
   name: "bscroll",
@@ -44,7 +42,6 @@ export default {
         click: true,
         probeType: this.probeType,
         pullUpLoad: this.pullUpLoad,
-        mouseWheel: true
       });
 
       this.scroll.on('scroll', (position) => {
@@ -53,14 +50,18 @@ export default {
 
       this.scroll.on('pullingUp', () => {
         this.$emit('pullUp')
+
       })
     },
     backTop(x, y, time = 400) {
-      this.scroll.scrollTo(x, y, time);
+      this?.scroll.scrollTo(x, y, time);
     },
     finishPullUp() {
-      this.scroll.finishPullUp();
-      this.scroll.refresh();
+      this?.scroll.finishPullUp();
+      this?.scroll.refresh();
+    },
+    btRefresh() {
+      this?.scroll.refresh();
     }
   },
 };
