@@ -31,6 +31,8 @@ import BackTop from "components/content/BackTop/BackTop.vue";
 
 import { GetHomeMultiData, GetGoodsList } from "network/home";
 
+import {debounce} from "common/utils.js";
+
 export default {
   name: "Home",
   data() {
@@ -71,15 +73,16 @@ export default {
     BackTop,
   },
   created() {
-        this.GetHomeMultiData();
-        this.GetGoodsList("choiceness");
-        this.GetGoodsList("fashion");
-        this.GetGoodsList("new");
+    this.GetHomeMultiData();
+    this.GetGoodsList("choiceness");
+    this.GetGoodsList("fashion");
+    this.GetGoodsList("new");
   },
   mounted() {
+    const refresh = debounce(this.$refs.btscroll.btRefresh, 50)
     //事件总线解决BetterScroll中的图片异步请求Bug
-    this.$bus.$on('ItemImgLoad', () => {
-      this.$refs.btscroll?.btRefresh();
+    this.$bus.$on("ItemImgLoad", () => {
+      refresh();
     });
   },
 
@@ -103,6 +106,7 @@ export default {
       });
       this.goods[type].page = page;
     },
+
 
     /* 事件监听 */
 

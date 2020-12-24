@@ -17,21 +17,17 @@ export default {
   data() {
     return {
       scroll: null,
-    }
+    };
   },
   props: {
     probeType: {
       type: Number,
-      deafult: 0
-    },
-    isCreate: {
-      type: Boolean,
-      deafult: false
+      deafult: 0,
     },
     pullUpLoad: {
       type: Boolean,
-      deafult: false
-    }
+      deafult: false,
+    },
   },
   mounted() {
     this.initScroll();
@@ -44,29 +40,34 @@ export default {
         pullUpLoad: this.pullUpLoad,
       });
 
-      this.scroll.on('scroll', (position) => {
-        this.$emit('scroll', position)
-      })
+      if (this.scroll.probeType == 2 || this.scroll.probeType == 3) {
+        this.scroll.on("scroll", (position) => {
+          this.$emit("scroll", position);
+        });
+      }
 
-      this.scroll.on('pullingUp', () => {
-        this.$emit('pullUp')
-
-      })
+      if (this.scroll.pullUpload == true) {
+        this.scroll.on("pullingUp", () => {
+          this.$emit("pullUp");
+        });
+      }
     },
+
     backTop(x, y, time = 400) {
       this?.scroll.scrollTo(x, y, time);
     },
+
     finishPullUp() {
       this?.scroll.finishPullUp();
       this?.scroll.refresh();
     },
+
     btRefresh() {
       this?.scroll.refresh();
-    }
+    },
   },
 };
 </script>
 
 <style scoped>
-
 </style>
