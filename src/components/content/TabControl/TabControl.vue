@@ -33,6 +33,7 @@ export default {
     showGoods(index, type) {
       this.currentIndex = index;
       this.$emit("chooseGoods", type);
+      this.$bus.$emit('changeGoods', index);
     },
   },
 };
@@ -48,6 +49,7 @@ export default {
 
 .tab-control {
   display: grid;
+  width: 100%;
   grid-template-columns: repeat(3, 33.3%);
   background-color: #fff;
   margin-bottom: 10px;

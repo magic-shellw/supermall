@@ -7,7 +7,7 @@
           {'swiper-current': index == currentIndex},
            {'swiper-next': nextIndex == index}]" :z-index="100 - index">
            <a :href="img.link">
-          <img :src="img.image" />
+          <img :src="img.image" @load="imgLoad"/>
            </a>
         </div>
     </div>
@@ -32,6 +32,7 @@ export default {
       startPoint: null,
       currentIndex: 0,
       atTime: null,
+      isLoad: false,
     };
   },
   methods: {
@@ -65,6 +66,12 @@ export default {
       (this.currentIndex >= this.imgArray.length -1 ?
       this.currentIndex = 0 :this.currentIndex++);
       this.autoPlay();
+    },
+    imgLoad() {
+      if(!this.isLoad){
+        this.$emit('ImgLoadComplete')
+        this.isLoad = true; 
+      }
     }
   },
   mounted() {

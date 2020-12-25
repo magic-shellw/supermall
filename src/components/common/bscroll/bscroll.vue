@@ -40,13 +40,13 @@ export default {
         pullUpLoad: this.pullUpLoad,
       });
 
-      if (this.scroll.probeType == 2 || this.scroll.probeType == 3) {
+      if (this.probeType == 2 || this.probeType == 3) {
         this.scroll.on("scroll", (position) => {
           this.$emit("scroll", position);
         });
       }
 
-      if (this.scroll.pullUpload == true) {
+      if (this.pullUpLoad == true) {
         this.scroll.on("pullingUp", () => {
           this.$emit("pullUp");
         });

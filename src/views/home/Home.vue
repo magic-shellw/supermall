@@ -1,6 +1,13 @@
 <template>
   <div class="home">
     <main-nav-bar />
+    <tab-control
+      v-show="isTabFixed"
+      :title="tabName"
+      class="either-tab-control"
+      @chooseGoods="chooseGoods"
+      ref="tabControl1"
+    />
     <bt-scroll
       class="wrapper"
       ref="btscroll"
@@ -9,13 +16,17 @@
       :pull-up-load="true"
       @pullUp="loadMore"
     >
-      <swiper :img-array="banner" />
+      <swiper :img-array="banner" @ImgLoadComplete="imgLoadComplete" />
       <recommend :recommend-data="recommendD" />
       <feature />
-      <tab-control :title="tabName" @chooseGoods="chooseGoods" />
+      <tab-control
+        :title="tabName"
+        @chooseGoods="chooseGoods"
+        ref="tabControl2"
+      />
       <goods-list-show :goods="showGoodsType" />
     </bt-scroll>
-    <back-top v-show="isShow" @click.native="backTop" />
+    <back-top v-show="isShow" @click.native="BackTop" />
   </div>
 </template>
 
@@ -31,7 +42,7 @@ import BackTop from "components/content/BackTop/BackTop.vue";
 
 import { GetHomeMultiData, GetGoodsList } from "network/home";
 
-import {debounce} from "common/utils.js";
+import { debounce } from "common/utils.js";
 
 export default {
   name: "Home",
@@ -60,6 +71,8 @@ export default {
         },
       ],
       isShow: false,
+      tabOffsetTop: 0,
+      isTabFixed: false,
     };
   },
   components: {
@@ -73,16 +86,26 @@ export default {
     BackTop,
   },
   created() {
-    this.GetHomeMultiData();
-    this.GetGoodsList("choiceness");
-    this.GetGoodsList("fashion");
-    this.GetGoodsList("new");
+    (async () => {
+      this.GetHomeMultiData();
+      this.GetGoodsList("choiceness");
+      this.GetGoodsList("fashion");
+      this.GetGoodsList("new");
+    })();
   },
   mounted() {
-    const refresh = debounce(this.$refs.btscroll.btRefresh, 50)
+    const refresh = debounce(this.$refs.btscroll.btRefresh, 50);
     //事件总线解决BetterScroll中的图片异步请求Bug
     this.$bus.$on("ItemImgLoad", () => {
       refresh();
+    });
+
+    this.$bus.$on("changeGoods", (index) => {
+      this.$refs.tabControl1.currentIndex = index;
+      this.$refs.tabControl2.currentIndex = index;
+      if (this.isTabFixed == true) {
+        this.$refs.btscroll.backTop(0, -this.tabOffsetTop, 200);
+      }
     });
   },
 
@@ -107,21 +130,24 @@ export default {
       this.goods[type].page = page;
     },
 
-
     /* 事件监听 */
 
     chooseGoods(type) {
       this.goodsType = type;
     },
-    backTop() {
+    BackTop() {
       this.$refs.btscroll.backTop(0, 0);
     },
     isShowBT({ y }) {
       this.isShow = Math.abs(y) > 500;
+      this.isTabFixed = Math.abs(y) > this.tabOffsetTop;
     },
     loadMore() {
       this.GetGoodsList(this.goodsType);
       this.$refs.btscroll.finishPullUp();
+    },
+    imgLoadComplete() {
+      this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop - 44;
     },
   },
   computed: {
@@ -140,5 +166,10 @@ export default {
 .wrapper {
   height: calc(100% - 93px);
   overflow: hidden;
+}
+
+.either-tab-control {
+  position: absolute;
+  z-index: 10;
 }
 </style>
